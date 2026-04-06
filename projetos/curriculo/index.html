@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luís Augusto Matos Pontes — Currículo</title>
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-regular-rounded/css/uicons-regular-rounded.css">
+<link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-brands/css/uicons-brands.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="xmb-canvas"></canvas>
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="sidebar">
+  <div class="avatar">
+    <img src="assets/photo.png" alt="Luís Augusto"
+         onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+    <div class="avatar-fallback" style="display:none">LA</div>
+  </div>
+
+  <div class="sb-name">Luís Augusto<br>Matos Pontes</div>
+  <div class="sb-sub">Engenheiro Civil &amp;<br>Dev de IA</div>
+
+  <div class="sb-divider"></div>
+
+  <div class="sb-section-title">Contato</div>
+  <div class="sb-contact">
+    <a class="sb-link" href="tel:+5588997219100"><i class="fi fi-rr-phone-call"></i>(88) 99721.9100</a>
+    <a class="sb-link" href="mailto:luisaugustomp@icloud.com"><i class="fi fi-rr-envelope"></i>luisaugustomp@icloud.com</a>
+    <a class="sb-link" href="#"><i class="fi fi-rr-marker"></i>Sobral, CE — Brasil</a>
+  </div>
+
+  <div class="sb-divider"></div>
+
+  <div class="sb-section-title">Social</div>
+  <div class="sb-contact">
+    <a class="sb-link" href="https://linkedin.com/in/luisaugustomp" target="_blank"><i class="fi fi-brands-linkedin"></i>LinkedIn</a>
+    <a class="sb-link" href="https://instagram.com/luisaugusto.mp" target="_blank"><i class="fi fi-brands-instagram"></i>Instagram</a>
+    <a class="sb-link" href="https://instagram.com/homeflex.eng" target="_blank"><i class="fi fi-rr-home-location-alt"></i>HomeFlex</a>
+    <a class="sb-link" href="#" target="_blank"><i class="fi fi-rr-diploma"></i>Certificados</a>
+  </div>
+
+  <div class="sb-divider"></div>
+
+  <div class="sb-section-title">Skills</div>
+  <div class="sb-skills">
+    <span class="skill-pill">Engenharia Civil</span>
+    <span class="skill-pill">Segurança do Trabalho</span>
+    <span class="skill-pill">Projetos Arquitetônicos</span>
+    <span class="skill-pill">Automação Residencial</span>
+    <span class="skill-pill">Python</span>
+    <span class="skill-pill">Agentes de IA</span>
+    <span class="skill-pill">Desenvolvimento de Sistemas</span>
+    <span class="skill-pill">Gerenciamento de Obras</span>
+    <span class="skill-pill">Inglês Fluente</span>
+  </div>
+</aside>
+
+<!-- ══ MAIN ══ -->
+<main class="main">
+
+  <!-- Sobre Mim -->
+  <section class="reveal">
+    <div class="sec-heading">Sobre Mim</div>
+    <div class="sec-rule"></div>
+    <div class="sec-divider"></div>
+    <p class="sobre-text">Engenheiro Civil experiente com formação complementar em Engenharia de Segurança do Trabalho e em desenvolvimento de soluções usando Python e Agentes de IA. Atuo no mercado desde 2019 em projetos arquitetônicos, automação residencial e programação de sistemas customizados.</p>
+    <p class="sobre-text" style="margin-top:16px">Atualmente cursando Arquitetura e Urbanismo, com forte atuação como CEO da HomeFlex Engenharia e Diretor Financeiro do Instituto de Engenharia do Ceará.</p>
+  </section>
+
+  <!-- Experiência -->
+  <section class="reveal">
+    <div class="sec-heading">Experiência Profissional</div>
+    <div class="sec-rule"></div>
+    <div class="sec-divider"></div>
+    <div class="timeline" id="exp-tl"></div>
+  </section>
+
+  <!-- Formação -->
+  <section class="reveal">
+    <div class="sec-heading">Formação Acadêmica</div>
+    <div class="sec-rule"></div>
+    <div class="sec-divider"></div>
+    <div class="timeline" id="edu-tl"></div>
+  </section>
+
+  <!-- Áreas -->
+  <section class="reveal">
+    <div class="sec-heading">Áreas de Atuação</div>
+    <div class="sec-rule"></div>
+    <div class="sec-divider"></div>
+    <div class="areas-wrap">
+      <div class="area-badge"><i class="fi fi-rr-pencil-ruler"></i>Engenharia Civil — Projetos</div>
+      <div class="area-badge"><i class="fi fi-rr-hard-hat"></i>Acompanhamento de Obras</div>
+      <div class="area-badge"><i class="fi fi-rr-shield-check"></i>Segurança do Trabalho</div>
+      <div class="area-badge"><i class="fi fi-rr-smart-home"></i>Automação Residencial</div>
+      <div class="area-badge"><i class="fi fi-rr-code-branch"></i>Programação — Python</div>
+      <div class="area-badge"><i class="fi fi-rr-robot"></i>Agentes de IA</div>
+      <div class="area-badge"><i class="fi fi-rr-building-columns"></i>Arquitetura e Urbanismo</div>
+    </div>
+  </section>
+
+  <div class="footer">Luís Augusto Matos Pontes &nbsp;·&nbsp; <span id="fy"></span></div>
+</main>
+
+<script>
+/* ═══════════ XMB WAVE CANVAS ═══════════ */
+(function(){
+  const cv=document.getElementById('xmb-canvas'),cx=cv.getContext('2d');
+  let W,H,t=0;
+
+  // Detecta modo claro/escuro
+  const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+
+  const WV=[
+    {amp:.050,freq:.82,spd:1.00,ph:0.00,yr:.40,r:0,  g:220,b:155,a:.075},
+    {amp:.065,freq:.66,spd:.76, ph:2.10,yr:.50,r:0,  g:170,b:255,a:.090},
+    {amp:.042,freq:1.12,spd:1.38,ph:4.40,yr:.57,r:0, g:200,b:200,a:.070},
+    {amp:.033,freq:.52,spd:.56, ph:1.00,yr:.63,r:0,  g:255,b:175,a:.060},
+    {amp:.048,freq:1.30,spd:1.58,ph:3.50,yr:.69,r:10,g:130,b:255,a:.080},
+    {amp:.028,freq:.40,spd:.42, ph:0.70,yr:.75,r:0,  g:230,b:215,a:.055},
+    {amp:.038,freq:.96,spd:1.22,ph:5.20,yr:.81,r:0,  g:190,b:255,a:.062},
+  ];
+  function rsz(){W=cv.width=window.innerWidth;H=cv.height=window.innerHeight;}
+  rsz();window.addEventListener('resize',rsz);
+  function yAt(w,x){const n=x/W;return H*w.yr+Math.sin(n*Math.PI*2*w.freq+t*w.spd+w.ph)*H*w.amp+Math.sin(n*Math.PI*3.3*w.freq+t*w.spd*.68+w.ph*1.3)*H*w.amp*.38+Math.sin(n*Math.PI*1.1*w.freq+t*w.spd*.42+w.ph*.85)*H*w.amp*.22;}
+  function dw(w){
+    cx.beginPath();cx.moveTo(0,H);
+    for(let x=0;x<=W+4;x+=4)cx.lineTo(x,yAt(w,x));
+    cx.lineTo(W,H);cx.closePath();
+    const f=cx.createLinearGradient(0,H*w.yr-H*w.amp*2,0,H);
+    f.addColorStop(0,`rgba(${w.r},${w.g},${w.b},${w.a*1.7})`);
+    f.addColorStop(1,`rgba(${w.r},${w.g},${w.b},${w.a*.10})`);
+    cx.fillStyle=f;cx.fill();
+    cx.beginPath();
+    for(let x=0;x<=W+4;x+=4){const y=yAt(w,x);x===0?cx.moveTo(x,y):cx.lineTo(x,y);}
+    cx.strokeStyle=`rgba(${w.r},${w.g},${w.b},${w.a*4.0})`;cx.lineWidth=1.4;cx.stroke();
+  }
+  function lp(){
+    cx.clearRect(0,0,W,H);
+    const bg=cx.createLinearGradient(0,0,0,H);
+    if(isDark){
+      bg.addColorStop(0,'#030e12');bg.addColorStop(.55,'#041820');bg.addColorStop(1,'#020c14');
+    }else{
+      bg.addColorStop(0,'#fff');bg.addColorStop(.55,'#f9fafc');bg.addColorStop(1,'#f5f7fa');
+    }
+    cx.fillStyle=bg;cx.fillRect(0,0,W,H);
+    if(isDark){
+      [[W*.3,H*.42,W*.65,'rgba(0,200,140,0.060)'],[W*.78,H*.36,W*.55,'rgba(0,130,255,0.052)'],[W*.55,H*.78,W*.42,'rgba(0,220,200,0.038)']].forEach(([gx,gy,r,c])=>{const g=cx.createRadialGradient(gx,gy,0,gx,gy,r);g.addColorStop(0,c);g.addColorStop(1,'transparent');cx.fillStyle=g;cx.fillRect(0,0,W,H);});
+    }else{
+      [[W*.3,H*.42,W*.65,'rgba(0,139,79,0.035)'],[W*.78,H*.36,W*.55,'rgba(0,102,170,0.030)'],[W*.55,H*.78,W*.42,'rgba(0,120,100,0.020)']].forEach(([gx,gy,r,c])=>{const g=cx.createRadialGradient(gx,gy,0,gx,gy,r);g.addColorStop(0,c);g.addColorStop(1,'transparent');cx.fillStyle=g;cx.fillRect(0,0,W,H);});
+    }
+    WV.forEach(dw);t+=.013;requestAnimationFrame(lp);
+  }
+  lp();
+})();
+
+/* ═════════ DURATION ═════════ */
+function dur(sy,sm=0){const s=new Date(sy,sm),n=new Date();let yr=n.getFullYear()-s.getFullYear(),mo=n.getMonth()-s.getMonth();if(mo<0){yr--;mo+=12;}const p=[];if(yr>0)p.push(yr+' ano'+(yr!==1?'s':''));if(mo>0)p.push(mo+' '+(mo!==1?'meses':'mês'));return p.join(' e ')||'< 1 mês';}
+
+/* ═════════ DATA ═════════ */
+const exp=[
+  {logo:'HomeFlex\nEngenharia',        role:'CEO e Fundador — Engenheiro Civil e Programador', co:'HomeFlex Engenharia',                             per:'2021 – Presente',  d:dur(2021,0), desc:'Elaboração e Gerenciamento de Projetos de Engenharia, Automação e Segurança Residencial.'},
+  {logo:'Instituto de\nEngenharia CE', role:'Diretor Financeiro',                              co:'Instituto de Engenharia do Ceará',                per:'2024 – Presente',  d:dur(2024,0), desc:'Supervisionar e otimizar a gestão de profissionais, recursos e políticas técnicas para garantir eficiência e inovação nos serviços de Engenharia, Arquitetura, Agronomia, Geologia e Geografia no Estado do Ceará.'},
+  {logo:'CP\nEngenheiros',             role:'Engenheiro Civil',                                co:'CP Engenheiros Associados',                       per:'2024 – 2025',      d:null,        desc:'Elaboração e Gerenciamento de Projetos — Consultoria.'},
+  {logo:'Apple\nTeacher',              role:'Apple Teacher · Professor de Física',             co:'Aulas Particulares',                              per:'2021 – 2023',      d:null,        desc:'Aulas particulares de Física para alunos do Ensino Médio e Fundamental.'},
+  {logo:'PDR\nEngenharia',             role:'Estágio Voluntário',                              co:'Engº Augusto Azevedo — PDR Engenharia',           per:'2021 – 2023',      d:null,        desc:'Elaboração e Gerenciamento de Projetos e Obras.'},
+  {logo:'Augusto\nAzevedo',            role:'Estágio Voluntário',                              co:'Engº Augusto Azevedo',                            per:'2020 – 2021',      d:null,        desc:'Elaboração e Gerenciamento de Projetos.'},
+  {logo:'Tec\nTest',                   role:'Estágio Voluntário',                              co:'Tec Test',                                        per:'2019 – 2020',      d:null,        desc:'Realização de Ensaios de Testes Laboratoriais com Materiais da Construção Civil.'},
+];
+const edu=[
+  {logo:'Faculdade\nLuciano Feijão',   role:'Graduação em Arquitetura e Urbanismo',            co:'Faculdade Luciano Feijão — Sobral, CE',           per:'2024 – Presente',  d:dur(2024,0), desc:'Ensino Superior — em andamento.'},
+  {logo:'UNINTA',                      role:'Pós-Graduação — Eng. de Segurança do Trabalho',   co:'Universidade UNINTA — Sobral, CE',                per:'2024 – 2025',      d:null,        desc:'Especialização. Título de Especialista em Engenharia de Segurança do Trabalho.'},
+  {logo:'Faculdade\nLuciano Feijão',   role:'Graduação em Engenharia Civil',                   co:'Faculdade Luciano Feijão — Sobral, CE',           per:'2019 – 2023',      d:null,        desc:'Ensino Superior — concluído.'},
+  {logo:'Harvard\nSEAS',               role:'HarvardX CS50AI — Intro to AI with Python',       co:'Harvard School of Engineering — MA, EUA',         per:'2022',             d:null,        desc:'Carga horária: 140h.'},
+  {logo:'MIT',                         role:'MITx — Computational Thinking & Data Science',    co:'Massachusetts Institute of Technology, EUA',      per:'2023',             d:null,        desc:'Carga horária: 140h.'},
+  {logo:'Augusto\nAzevedo',            role:'Curso — Elaboração e Análise de Estruturas',      co:'J. Augusto Azevedo Laureano — CREA-CE: 10369/D', per:'2021',             d:null,        desc:'Carga horária: 30h.'},
+  {logo:'Augusto\nAzevedo',            role:'Curso — Gerenciamento de Orçamentos',             co:'J. Augusto Azevedo Laureano — CREA-CE: 10369/D', per:'2022',             d:null,        desc:'Carga horária: 30h.'},
+  {logo:'CBMCE\nBrigadista',           role:'Formação de Brigadista de Incêndio',               co:'J. Augusto Azevedo Laureano — CBMCE 14D1221',   per:'2023',             d:null,        desc:'Carga horária: 8h.'},
+  {logo:'Palácio\nde Línguas',         role:'Curso de Inglês',                                 co:'Palácio de Línguas Estrangeiras — Sobral, CE',   per:'2013 – 2017',      d:null,        desc:'Carga horária: 30h.'},
+];
+
+/* ═════════ RENDER ═════════ */
+function render(items,id){
+  document.getElementById(id).innerHTML=items.map(it=>`
+    <div class="tl-item"><div class="tl-dot"></div>
+    <div class="tl-card">
+      <div class="logo-ph">${it.logo}</div>
+      <div class="tl-content">
+        <div class="tl-role">${it.role}</div>
+        <div class="tl-company">${it.co}</div>
+        <div class="tl-period">${it.per}${it.d?`<span class="dur">(${it.d})</span>`:''}</div>
+        <div class="tl-desc">${it.desc}</div>
+      </div>
+    </div></div>`).join('');
+}
+render(exp,'exp-tl');render(edu,'edu-tl');
+document.getElementById('fy').textContent=new Date().getFullYear();
+
+/* ═════════ SCROLL REVEAL ═════════ */
+const io=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting){x.target.classList.add('visible');io.unobserve(x.target);}}),{threshold:.05});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
