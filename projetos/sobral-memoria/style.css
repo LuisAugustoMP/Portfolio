@@ -508,7 +508,7 @@ section { position: relative; z-index: 1; }
   flex-shrink: 0; font-size: .82rem;
 }
 .place-quote p {
-  font-size: .85rem; color: var(--text-secondary); line-height: 1.65; font-style: italic; font-weight: 700;
+  font-size: .85rem; color: var(--text-secondary); line-height: 1.65; font-style: italic; font-weight: 1100;
 }
 .place-quote strong {
   display: block; font-size: .66rem; font-weight: 700;
@@ -559,7 +559,7 @@ section { position: relative; z-index: 1; }
 .testimony-info strong { display: block; font-size: .88rem; color: var(--text-primary); }
 .testimony-info span { font-size: .74rem; color: var(--text-tertiary); }
 .testimony-body {
-  font-size: .95rem; color: var(--text-secondary); line-height: 1.8; font-style: italic; font-weight: 700;
+  font-size: .95rem; color: var(--text-secondary); line-height: 1.8; font-style: italic; font-weight: 900;
 }
 .testimony-body i { float: left; margin-right: 6px; margin-top: 2px; opacity: .3; font-size: 1rem; }
 
