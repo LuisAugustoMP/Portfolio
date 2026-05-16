@@ -9,6 +9,214 @@
     content="Uma jornada pelo tempo e espaço urbano de Sobral-CE, resgatando memórias afetivas dos idosos nos espaços públicos da cidade." />
   <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/2.6.0/uicons-bold-rounded/css/uicons-bold-rounded.css" />
   <link rel="stylesheet" href="style.css" />
+
+  <style>
+    /* ══════════════════════════════════════════════════
+       SOBRAL EM IMAGENS — novos componentes
+       (complementa o style.css principal)
+       ══════════════════════════════════════════════════ */
+
+    /* ── Intro: metodologia + casal ── */
+    .gallery-intro {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 28px;
+      padding: 36px 40px;
+      margin-top: 48px;
+      margin-bottom: 40px;
+      position: relative;
+      z-index: 1;
+    }
+    .gallery-intro-text {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .gallery-intro-text p {
+      color: var(--text-secondary);
+      line-height: 1.9;
+      font-size: 1rem;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .gallery-intro-text p:last-child { margin-bottom: 0; }
+    .gallery-intro-text strong { color: var(--text-primary); font-weight: 800; }
+
+    /* ── Card de fala do casal ── */
+    .gallery-couple-quote {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      padding: 26px 28px;
+      border-radius: var(--radius-md, 22px);
+      background: var(--glass-bg);
+      border: 1.5px solid var(--glass-border);
+      border-left: 3px solid var(--rose);
+      position: relative;
+      z-index: 1;
+    }
+    .couple-avatars {
+      display: flex;
+      align-items: center;
+    }
+    .couple-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      font-weight: 800;
+      color: white;
+      flex-shrink: 0;
+      font-family: 'Playfair Display', 'Fraunces', serif;
+    }
+    .couple-avatar--l {
+      background: linear-gradient(135deg, var(--teal), var(--lavender));
+      z-index: 2;
+    }
+    .couple-avatar--s {
+      background: linear-gradient(135deg, var(--rose), var(--amber));
+      margin-left: -11px;
+      border: 2.5px solid var(--bg-primary);
+      z-index: 1;
+    }
+    .gallery-couple-quote p {
+      font-style: italic;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.9;
+      font-size: 0.96rem;
+    }
+    .gallery-couple-quote cite {
+      font-style: normal;
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: var(--rose);
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    @media (max-width: 800px) {
+      .gallery-intro {
+        grid-template-columns: 1fr;
+        padding: 24px 22px;
+        margin-bottom: 28px;
+      }
+    }
+
+    /* ══════════════════════════════════════════════════
+       MARQUEE — flex, proporções exatas
+         .horiz  →  3:2  landscape  (360 × 240 px)
+         .vert   →  2:3  portrait   (240 × 360 px)
+       As fotos são alinhadas pela base (flex-end),
+       criando um ritmo visual entre altas e largas.
+       ══════════════════════════════════════════════════ */
+    .gallery-marquee-wrap {
+      display: flex;
+      overflow: hidden;
+      width: 100vw;
+      margin-left: calc(50% - 50vw);
+      padding: 10px 0 18px;
+    }
+
+    .marquee-track {
+      display: flex !important;
+      /* zera qualquer herança de grid */
+      grid-template-rows: unset !important;
+      grid-auto-columns: unset !important;
+      grid-auto-flow: unset !important;
+      flex-shrink: 0;
+      align-items: flex-end;
+      gap: 16px;
+      padding: 0 8px;
+      animation: scroll-left 60s linear infinite;
+    }
+    .gallery-marquee-wrap:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    /* Reset de qualquer grid-row herdado do .tall anterior */
+    .gal {
+      flex-shrink: 0 !important;
+      position: relative;
+      border-radius: var(--radius-md, 22px);
+      overflow: hidden;
+      border: 1.5px solid var(--glass-border);
+      grid-row: unset !important;
+      grid-column: unset !important;
+    }
+
+    /* 3:2 paisagem — 360 × 240 */
+    .gal.horiz {
+      width: 360px;
+      height: 240px;
+    }
+    /* 2:3 retrato — 240 × 360 */
+    .gal.vert {
+      width: 240px;
+      height: 360px;
+    }
+
+    .gal img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.6s ease;
+    }
+    .gal:hover img { transform: scale(1.07); }
+
+    .gal-over {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.52) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.32s ease;
+    }
+    .gal:hover .gal-over { opacity: 1; }
+
+    .gal-cap {
+      position: absolute;
+      bottom: 13px; left: 13px; right: 13px;
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 700;
+      font-family: 'Playfair Display', 'Fraunces', serif;
+      font-style: italic;
+      opacity: 0;
+      transform: translateY(6px);
+      transition: opacity 0.32s ease, transform 0.32s ease;
+      pointer-events: none;
+    }
+    .gal:hover .gal-cap { opacity: 1; transform: translateY(0); }
+
+    /* Badge de época nas fotos históricas */
+    .gal-era {
+      position: absolute;
+      top: 10px; left: 10px;
+      background: rgba(0, 0, 0, 0.58);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      color: rgba(255, 218, 148, 0.96);
+      font-size: 0.58rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 4px 10px;
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+      .gal.horiz { width: 252px; height: 168px; }
+      .gal.vert  { width: 168px; height: 252px; }
+      .marquee-track { gap: 12px; }
+    }
+  </style>
 </head>
 
 <body>
@@ -25,7 +233,7 @@
           Cidade</span></a>
       <a href="#lugares" class="nav-link"><i class="fi fi-br-marker" aria-hidden="true"></i><span>Lugares</span></a>
       <a href="#vozes" class="nav-link"><i class="fi fi-br-users" aria-hidden="true"></i><span>Vozes</span></a>
-      <a href="#galeria" class="nav-link"><i class="fi fi-br-picture" aria-hidden="true"></i><span>Galeria</span></a>
+      <a href="#galeria" class="nav-link"><i class="fi fi-br-picture" aria-hidden="true"></i><span>Fotos</span></a>
     </div>
     <button id="theme-btn" class="theme-toggle" onclick="toggleTheme()" aria-label="Alternar modo claro/escuro"
       type="button">
@@ -302,14 +510,14 @@
             <span class="place-tag" style="background:rgba(123,110,170,.1);color:var(--lavender)"><i
                 class="fi fi-br-calendar" aria-hidden="true"></i> Festas &amp; Tradição</span>
             <h3 class="place-name">Praça do Patrocínio</h3>
-            <p class="place-desc">Era o coração das festas de São João e das novenas, com quiosques, leilões e celebrações que
-              reuniam a vizinhança. Hoje o espaço lembra a alegria de uma comunidade que se reunia para celebrar e se
-              conectar.</p>
+            <p class="place-desc">Era o coração das festas de São João e das novenas, com quiosques, leilões e
+              celebrações que reuniam a vizinhança. Hoje o espaço lembra a alegria de uma comunidade que se reunia para
+              celebrar e se conectar.</p>
             <div class="place-quote">
               <div class="place-quote-icon" style="background:rgba(123,110,170,.1);color:var(--lavender)"><i
                   class="fi fi-br-comment-alt" aria-hidden="true"></i></div>
-              <p><strong style="color:var(--lavender)">D. Maria de Lourdes - 81 Anos</strong>"A praça era viva demais, com quiosques,
-                quadrilhas e novenas. Hoje ficou tudo só na memória."</p>
+              <p><strong style="color:var(--lavender)">D. Maria de Lourdes - 81 Anos</strong>"A praça era viva demais,
+                com quiosques, quadrilhas e novenas. Hoje ficou tudo só na memória."</p>
             </div>
           </div>
         </article>
@@ -333,10 +541,10 @@
           </div>
         </article>
 
-        <!-- ═══ NOVO: PRAÇA QUIRINO RODRIGUES ═══ -->
         <article class="glass place reveal" aria-label="Praça Quirino Rodrigues">
           <div class="place-img">
-            <img src="assets/pracaabrigo.png" alt="Praça Quirino Rodrigues, conhecida como Praça do Abrigo, em Sobral" loading="lazy" />
+            <img src="assets/pracaabrigo.png" alt="Praça Quirino Rodrigues, conhecida como Praça do Abrigo, em Sobral"
+              loading="lazy" />
           </div>
           <div class="place-body">
             <span class="place-tag" style="background:rgba(196,136,42,.1);color:var(--amber)"><i class="fi fi-br-users"
@@ -389,7 +597,8 @@
 
           <div class="glass-strong testimony" role="listitem">
             <div class="testimony-head">
-              <div class="testimony-avatar" style="background:linear-gradient(135deg,var(--lavender),var(--teal))">M</div>
+              <div class="testimony-avatar" style="background:linear-gradient(135deg,var(--lavender),var(--teal))">M
+              </div>
               <div class="testimony-info">
                 <strong>Dona Maria de Lourdes</strong>
                 <span>81 anos · Praça do Patrocínio</span>
@@ -419,7 +628,6 @@
             </p>
           </div>
 
-          <!-- ═══ NOVO: DEPOIMENTO SEU JÚLIO ═══ -->
           <div class="glass-strong testimony" role="listitem">
             <div class="testimony-head">
               <div class="testimony-avatar" style="background:linear-gradient(135deg,var(--amber),var(--rose))">J</div>
@@ -455,162 +663,234 @@
   </section>
 
 
-  <!-- ═══ GALERIA ═══ -->
+  <!-- ═══════════════════════════════════════════════════
+       SOBRAL EM IMAGENS
+       ═══════════════════════════════════════════════════ -->
   <section class="gallery" id="galeria">
     <div class="container">
+
+      <!-- Cabeçalho -->
       <div class="gallery-head reveal">
-        <span class="sec-label"><i class="fi fi-br-picture" aria-hidden="true"></i> Galeria</span>
-        <h2 class="sec-title">Sobral <em>em Imagens</em></h2>
-        <p class="sec-desc">Registros visuais que imortalizam os espaços e momentos que definem a identidade da cidade.
-        </p>
+        <span class="sec-label"><i class="fi fi-br-camera-retro" aria-hidden="true"></i> Sobral em Imagens</span>
+        <h2 class="sec-title">A Cidade que<br><em>Eles Viveram</em></h2>
+        <p class="sec-desc">Fotografias históricas apresentadas a quem as viveu — e as memórias que cada enquadramento
+          despertou.</p>
       </div>
-      <div class="gallery-marquee-wrap reveal">
-        <div class="marquee-track">
-          <!-- Bloco Perfeito (11 Colunas) -->
-          <div class="gal tall"><img src="assets/placeholder_09_catedral_vert.png" alt="Catedral" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Catedral</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_01_sobre.png" alt="Praça Histórica" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Praça Histórica</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_02_praca_se.png" alt="Praça da Sé" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Praça da Sé</div>
-          </div>
-          <div class="gal tall"><img src="assets/placeholder_11_vert.png" alt="Ruela Antiga" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Ruela Antiga</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_03_teatro.png" alt="Teatro" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Teatro</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_04_estacao.png" alt="Estação Ferroviária" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Estação Ferroviária</div>
-          </div>
-          <div class="gal tall"><img src="assets/placeholder_12_vert.png" alt="Janelas Coloniais" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Janelas Coloniais</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_05_rio.png" alt="Rio Acaraú" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Rio Acaraú</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_06_mercado.png" alt="Mercado" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Mercado</div>
-          </div>
-          <div class="gal tall"><img src="assets/placeholder_10_galeria.png" alt="Torre da Igreja" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Torre da Igreja</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_07_igreja.png" alt="Igreja Rosário" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Igreja Rosário</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_08_galeria_maos.png" alt="Ruas de Memória" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Ruas de Memória</div>
-          </div>
-          <div class="gal tall"><img src="assets/placeholder_13_vert.png" alt="Arco do Triunfo" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Arco do Triunfo</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_15_quad.png" alt="Detalhe de Azulejo" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Detalhe de Azulejo</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_16_quad.png" alt="Porta Antiga" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Porta Antiga</div>
-          </div>
-          <div class="gal tall"><img src="assets/placeholder_14_vert.png" alt="Escadaria" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Escadaria</div>
-          </div>
-          <!-- Praça do Abrigo na galeria -->
-          <div class="gal tall"><img src="assets/pracaabrigo.png" alt="Praça Quirino Rodrigues" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Praça do Abrigo</div>
-          </div>
+
+      <!-- ── Bloco de metodologia + fala do casal ── -->
+      <div class="gallery-intro glass-strong reveal">
+
+        <div class="gallery-intro-text">
+          <p>Para esta seção, a abordagem metodológica foi diferente. Em vez de visitar os espaços, os estudantes
+            <strong>levaram os espaços até as pessoas</strong> — por meio de um acervo de fotografias históricas de
+            Sobral, registradas entre as décadas de 1970 e 2000. As imagens foram apresentadas sem pressa, uma a uma,
+            deixando que as lembranças aflorassem naturalmente a partir de cada enquadramento.</p>
+          <p><strong>Seu Luiz</strong> (64 anos) e <strong>Dona Socorro</strong> (58 anos) receberam esse convite com
+            generosidade. Sentados juntos, revisitaram décadas de uma Sobral que conheceram lado a lado — as escolas
+            onde estudaram, os programas que faziam, os lugares onde construíram sua história. Com lágrimas de nostalgia,
+            contaram tudo o que presenciaram ao longo desses anos na cidade que amam.</p>
         </div>
-        <!-- Cópia exata para o loop contínuo -->
-        <div class="marquee-track" aria-hidden="true">
-          <div class="gal tall"><img src="assets/placeholder_09_catedral_vert.png" alt="Catedral" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Catedral</div>
+
+        <blockquote class="gallery-couple-quote">
+          <div class="couple-avatars" aria-hidden="true">
+            <div class="couple-avatar couple-avatar--l">L</div>
+            <div class="couple-avatar couple-avatar--s">S</div>
           </div>
-          <div class="gal"><img src="assets/placeholder_01_sobre.png" alt="Praça Histórica" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Praça Histórica</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_02_praca_se.png" alt="Praça da Sé" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Praça da Sé</div>
-          </div>
-          <div class="gal tall"><img src="assets/placeholder_11_vert.png" alt="Ruela Antiga" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Ruela Antiga</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_03_teatro.png" alt="Teatro" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Teatro</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_04_estacao.png" alt="Estação Ferroviária" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Estação Ferroviária</div>
-          </div>
-          <div class="gal tall"><img src="assets/placeholder_12_vert.png" alt="Janelas Coloniais" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Janelas Coloniais</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_05_rio.png" alt="Rio Acaraú" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Rio Acaraú</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_06_mercado.png" alt="Mercado" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Mercado</div>
-          </div>
-          <div class="gal tall"><img src="assets/placeholder_10_galeria.png" alt="Torre da Igreja" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Torre da Igreja</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_07_igreja.png" alt="Igreja Rosário" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Igreja Rosário</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_08_galeria_maos.png" alt="Ruas de Memória" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Ruas de Memória</div>
-          </div>
-          <div class="gal tall"><img src="assets/placeholder_13_vert.png" alt="Arco do Triunfo" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Arco do Triunfo</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_15_quad.png" alt="Detalhe de Azulejo" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Detalhe de Azulejo</div>
-          </div>
-          <div class="gal"><img src="assets/placeholder_16_quad.png" alt="Porta Antiga" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Porta Antiga</div>
-          </div>
-          <div class="gal tall"><img src="assets/placeholder_14_vert.png" alt="Escadaria" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Escadaria</div>
-          </div>
-          <div class="gal tall"><img src="assets/pracaabrigo.png" alt="Praça Quirino Rodrigues" loading="lazy" />
-            <div class="gal-over"></div>
-            <div class="gal-cap">Praça do Abrigo</div>
-          </div>
+          <p>"Toda quinta-feira a gente ia ao Cine Rangel assistir um filme, e depois descia pro Beco do Cotovelo para
+            jantar na pizzaria da Beth. Era a Quinta sem Lei — tinha música ao vivo e aquela alegria toda. O Luiz
+            estudou no Coração de Jesus, eu no Santana, mas a cidade sempre nos juntava nesses lugares. Ele ainda
+            lembra do posto de gasolina que ficava bem em frente ao Arco, na Boulevard — antes de tudo aquilo mudar do
+            jeito que está hoje."</p>
+          <cite>Dona Socorro, 58 anos · Seu Luiz, 64 anos</cite>
+        </blockquote>
+
+      </div><!-- /gallery-intro -->
+
+    </div><!-- /container — o carrosel sai do container para ser full-width -->
+
+    <!--
+      ╔══════════════════════════════════════════════╗
+      ║  CARROSEL DE IMAGENS                         ║
+      ║  Classes de aspecto:                         ║
+      ║    .horiz  → 3:2  (360 × 240 px)             ║
+      ║    .vert   → 2:3  (240 × 360 px)             ║
+      ║  Fotos históricas sempre primeiro.           ║
+      ╚══════════════════════════════════════════════╝
+    -->
+    <div class="gallery-marquee-wrap" role="region" aria-label="Carrosel de fotografias de Sobral">
+
+      <!-- Trilha principal -->
+      <div class="marquee-track">
+
+        <!-- ★ FOTOGRAFIAS HISTÓRICAS ★ -->
+        <div class="gal vert">
+          <img src="assets/patrocinio_antigo.png" alt="Praça do Patrocínio Antiga" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div>
+          <div class="gal-over"></div>
+          <div class="gal-cap">Praça do Patrocínio Antiga</div>
         </div>
-      </div>
-    </div>
-  </section>
+
+        <div class="gal horiz">
+          <img src="assets/arco_antigo.png" alt="Boulevard do Arco de Sobral vista de cima" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div>
+          <div class="gal-over"></div>
+          <div class="gal-cap">Boulevard do Arco — Vista Aérea</div>
+        </div>
+
+        <div class="gal horiz">
+          <img src="assets/coracaojesus.png" alt="Antigo Ginásio Coração de Jesus" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div>
+          <div class="gal-over"></div>
+          <div class="gal-cap">Ginásio Coração de Jesus</div>
+        </div>
+
+        <div class="gal horiz">
+          <img src="assets/beco.png" alt="Beth's Pizzaria no Beco do Cotovelo" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div>
+          <div class="gal-over"></div>
+          <div class="gal-cap">Beth's Pizzaria — Beco do Cotovelo</div>
+        </div>
+
+        <div class="gal horiz">
+          <img src="assets/beco2.png" alt="Clientes na Beth's Pizzaria durante a Quinta sem Lei" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div>
+          <div class="gal-over"></div>
+          <div class="gal-cap">Quinta sem Lei no Beco do Cotovelo</div>
+        </div>
+
+        <div class="gal horiz">
+          <img src="assets/arco_antigo2.png" alt="Arco de Sobral visto da rua" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div>
+          <div class="gal-over"></div>
+          <div class="gal-cap">Arco — Vista da Rua</div>
+        </div>
+
+        <!-- ★ FOTOGRAFIAS CONTEMPORÂNEAS ★ -->
+        <div class="gal vert">
+          <img src="assets/placeholder_09_catedral_vert.png" alt="Catedral de Sobral" loading="lazy" />
+          <div class="gal-over"></div>
+          <div class="gal-cap">Catedral</div>
+        </div>
+
+        <div class="gal horiz">
+          <img src="assets/placeholder_02_praca_se.png" alt="Praça da Sé" loading="lazy" />
+          <div class="gal-over"></div>
+          <div class="gal-cap">Praça da Sé</div>
+        </div>
+
+        <div class="gal horiz">
+          <img src="assets/placeholder_03_teatro.png" alt="Teatro São João" loading="lazy" />
+          <div class="gal-over"></div>
+          <div class="gal-cap">Teatro São João</div>
+        </div>
+
+        <div class="gal vert">
+          <img src="assets/placeholder_11_vert.png" alt="Ruela Histórica de Sobral" loading="lazy" />
+          <div class="gal-over"></div>
+          <div class="gal-cap">Ruela Histórica</div>
+        </div>
+
+        <div class="gal horiz">
+          <img src="assets/placeholder_05_rio.png" alt="Rio Acaraú" loading="lazy" />
+          <div class="gal-over"></div>
+          <div class="gal-cap">Rio Acaraú</div>
+        </div>
+
+        <div class="gal horiz">
+          <img src="assets/placeholder_07_igreja.png" alt="Igreja do Rosário" loading="lazy" />
+          <div class="gal-over"></div>
+          <div class="gal-cap">Igreja do Rosário</div>
+        </div>
+
+        <div class="gal vert">
+          <img src="assets/placeholder_14_vert.png" alt="Escadaria Histórica" loading="lazy" />
+          <div class="gal-over"></div>
+          <div class="gal-cap">Escadaria Histórica</div>
+        </div>
+
+        <div class="gal horiz">
+          <img src="assets/placeholder_06_mercado.png" alt="Mercado Central de Sobral" loading="lazy" />
+          <div class="gal-over"></div>
+          <div class="gal-cap">Mercado Central</div>
+        </div>
+
+        <div class="gal vert">
+          <img src="assets/pracaabrigo.png" alt="Praça Quirino Rodrigues" loading="lazy" />
+          <div class="gal-over"></div>
+          <div class="gal-cap">Praça do Abrigo</div>
+        </div>
+
+        <div class="gal horiz">
+          <img src="assets/placeholder_04_estacao.png" alt="Estação Ferroviária de Sobral" loading="lazy" />
+          <div class="gal-over"></div>
+          <div class="gal-cap">Estação Ferroviária</div>
+        </div>
+
+      </div><!-- /marquee-track (original) -->
+
+      <!-- Cópia para loop contínuo (aria-hidden) -->
+      <div class="marquee-track" aria-hidden="true">
+
+        <div class="gal vert"><img src="assets/patrocinio_antigo.png" alt="" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div><div class="gal-over"></div>
+          <div class="gal-cap">Praça do Patrocínio Antiga</div></div>
+
+        <div class="gal horiz"><img src="assets/arco_antigo.png" alt="" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div><div class="gal-over"></div>
+          <div class="gal-cap">Boulevard do Arco — Vista Aérea</div></div>
+
+        <div class="gal horiz"><img src="assets/coracaojesus.png" alt="" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div><div class="gal-over"></div>
+          <div class="gal-cap">Ginásio Coração de Jesus</div></div>
+
+        <div class="gal horiz"><img src="assets/beco.png" alt="" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div><div class="gal-over"></div>
+          <div class="gal-cap">Beth's Pizzaria — Beco do Cotovelo</div></div>
+
+        <div class="gal horiz"><img src="assets/beco2.png" alt="" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div><div class="gal-over"></div>
+          <div class="gal-cap">Quinta sem Lei no Beco do Cotovelo</div></div>
+
+        <div class="gal horiz"><img src="assets/arco_antigo2.png" alt="" loading="lazy" />
+          <div class="gal-era">Anos 70–90</div><div class="gal-over"></div>
+          <div class="gal-cap">Arco — Vista da Rua</div></div>
+
+        <div class="gal vert"><img src="assets/placeholder_09_catedral_vert.png" alt="" loading="lazy" />
+          <div class="gal-over"></div><div class="gal-cap">Catedral</div></div>
+
+        <div class="gal horiz"><img src="assets/placeholder_02_praca_se.png" alt="" loading="lazy" />
+          <div class="gal-over"></div><div class="gal-cap">Praça da Sé</div></div>
+
+        <div class="gal horiz"><img src="assets/placeholder_03_teatro.png" alt="" loading="lazy" />
+          <div class="gal-over"></div><div class="gal-cap">Teatro São João</div></div>
+
+        <div class="gal vert"><img src="assets/placeholder_11_vert.png" alt="" loading="lazy" />
+          <div class="gal-over"></div><div class="gal-cap">Ruela Histórica</div></div>
+
+        <div class="gal horiz"><img src="assets/placeholder_05_rio.png" alt="" loading="lazy" />
+          <div class="gal-over"></div><div class="gal-cap">Rio Acaraú</div></div>
+
+        <div class="gal horiz"><img src="assets/placeholder_07_igreja.png" alt="" loading="lazy" />
+          <div class="gal-over"></div><div class="gal-cap">Igreja do Rosário</div></div>
+
+        <div class="gal vert"><img src="assets/placeholder_14_vert.png" alt="" loading="lazy" />
+          <div class="gal-over"></div><div class="gal-cap">Escadaria Histórica</div></div>
+
+        <div class="gal horiz"><img src="assets/placeholder_06_mercado.png" alt="" loading="lazy" />
+          <div class="gal-over"></div><div class="gal-cap">Mercado Central</div></div>
+
+        <div class="gal vert"><img src="assets/pracaabrigo.png" alt="" loading="lazy" />
+          <div class="gal-over"></div><div class="gal-cap">Praça do Abrigo</div></div>
+
+        <div class="gal horiz"><img src="assets/placeholder_04_estacao.png" alt="" loading="lazy" />
+          <div class="gal-over"></div><div class="gal-cap">Estação Ferroviária</div></div>
+
+      </div><!-- /marquee-track (clone) -->
+
+    </div><!-- /gallery-marquee-wrap -->
+
+  </section><!-- /#galeria -->
+
 
   <!-- ═══ FOOTER ═══ -->
   <footer class="site-footer">
